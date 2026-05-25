@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://b3t8y5exl1p2d"]
+
+[ext_resource type="Script" uid="uid://bvxv45ckr5cka" path="res://scripts/main_world.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d0ivftm033abj" path="res://assets/tilesheet.png" id="2_tilesheet"]
+[ext_resource type="PackedScene" uid="uid://b3t8y4exl1p2e" path="res://scenes/npc.tscn" id="4_npc_scene"]
+[ext_resource type="PackedScene" uid="uid://b3t8y3exl1p2e" path="res://scenes/fishing_area.tscn" id="5_fishing_area_scene"]
+[ext_resource type="PackedScene" uid="uid://b3t8y1exl1p2e" path="res://scenes/player.tscn" id="6_inventory_ui_scene"]
+[ext_resource type="PackedScene" uid="uid://b3t8y5exl1p2f" path="res://scenes/shop_ui.tscn" id="7_shop_ui_scene"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1"]
+texture = ExtResource("2_tilesheet")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, 8, 2, 8, 8, -8, 8)
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 8, -8, 8)
+7:1/0 = 0
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 0, 4, 0, 4, 8, -4, 8)
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lake"]
+size = Vector2(24, 288)
+
+[sub_resource type="Curve" id="Curve_1"]
+_data = [Vector2(0, 0.8), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="MainWorld" type="Node2D" unique_id=58562752]
+script = ExtResource("1_script")
+
+[node name="TileMap" type="TileMap" parent="." unique_id=1835812742]
+tile_set = SubResource("TileSet_1")
+format = 2
+layer_0/name = "Ground"
+layer_1/name = "Soil"
+layer_2/name = "Details"
+
+[node name="CropsContainer" type="Node2D" parent="." unique_id=1723496577]
+
+[node name="NPC" parent="." unique_id=1276667176 instance=ExtResource("4_npc_scene")]
+position = Vector2(376, 88)
+
+[node name="FishingArea" parent="." unique_id=1408262098 instance=ExtResource("5_fishing_area_scene")]
+position = Vector2(468, 192)
+
+[node name="CollisionShape2D" parent="FishingArea" index="0"]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_lake")
+
+[node name="Player" parent="." unique_id=1187802482 instance=ExtResource("6_inventory_ui_scene")]
+position = Vector2(192, 191)
+rotation = 0.057782695
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1954307866]
+color = Color(1, 0.98, 0.95, 1)
+
+[node name="SakuraParticles" type="CPUParticles2D" parent="." unique_id=568787266]
+position = Vector2(260, -40)
+amount = 40
+lifetime = 9.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(400, 10)
+direction = Vector2(-0.8, 1)
+spread = 15.0
+gravity = Vector2(-3, 6)
+initial_velocity_min = 12.0
+initial_velocity_max = 25.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_1")
+color = Color(1, 0.701961, 0.768627, 0.8)
+
+[node name="WindParticles" type="CPUParticles2D" parent="." unique_id=1240706636]
+position = Vector2(260, -40)
+amount = 15
+lifetime = 7.0
+preprocess = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(400, 10)
+direction = Vector2(-1, 0.4)
+spread = 10.0
+gravity = Vector2(-1, 2)
+initial_velocity_min = 18.0
+initial_velocity_max = 35.0
+scale_amount_max = 2.0
+color = Color(0.701961, 0.898039, 0.74902, 0.38)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1321604728]
+
+[node name="InventoryUI" parent="CanvasLayer" unique_id=1474725899 instance=ExtResource("6_inventory_ui_scene")]
+
+[node name="ShopUI" parent="CanvasLayer" unique_id=1525710810 instance=ExtResource("7_shop_ui_scene")]
+visible = false
+
+[node name="ScreenFade" type="ColorRect" parent="CanvasLayer" unique_id=617617881]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[editable path="FishingArea"]

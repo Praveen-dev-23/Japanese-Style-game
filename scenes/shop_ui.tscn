@@ -1,0 +1,205 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3t8y5exl1p2f"]
+
+[ext_resource type="Script" path="res://scripts/shop_ui.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://de5a8a8a8a8c" path="res://assets/ui.png" id="2_ui_texture"]
+[ext_resource type="Texture2D" uid="uid://de5a8a8a8a8b" path="res://assets/items.png" id="3_items_texture"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.24, 0.22, 0.2, 0.68)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 9
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ShopUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ui_texture")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="TitleLabel" type="Label" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Sora's Shop"
+horizontal_alignment = 1
+
+[node name="Tabs" type="Control" parent="NinePatchRect"]
+anchors_preset = 0
+offset_left = 15.0
+offset_top = 28.0
+offset_right = 305.0
+offset_bottom = 54.0
+
+[node name="BuyBtn" type="Button" parent="NinePatchRect/Tabs"]
+layout_mode = 1
+offset_right = 140.0
+offset_bottom = 22.0
+focus_mode = 0
+text = "Buy Seeds"
+
+[node name="SellBtn" type="Button" parent="NinePatchRect/Tabs"]
+layout_mode = 1
+offset_left = 150.0
+offset_right = 290.0
+offset_bottom = 22.0
+focus_mode = 0
+text = "Sell Goods"
+
+[node name="BuyTab" type="Control" parent="NinePatchRect/Tabs"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SellTab" type="Control" parent="NinePatchRect/Tabs"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BuyListContainer" type="Control" parent="NinePatchRect"]
+anchors_preset = 0
+offset_left = 15.0
+offset_top = 56.0
+offset_right = 305.0
+offset_bottom = 202.0
+
+[node name="BuyScroll" type="ScrollContainer" parent="NinePatchRect/BuyListContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BuyList" type="VBoxContainer" parent="NinePatchRect/BuyListContainer/BuyScroll"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 4
+
+[node name="SellListContainer" type="Control" parent="NinePatchRect"]
+visible = false
+anchors_preset = 0
+offset_left = 15.0
+offset_top = 56.0
+offset_right = 305.0
+offset_bottom = 202.0
+
+[node name="SellScroll" type="ScrollContainer" parent="NinePatchRect/SellListContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SellList" type="VBoxContainer" parent="NinePatchRect/SellListContainer/SellScroll"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 4
+
+[node name="SellAllBtn" type="Button" parent="NinePatchRect/SellListContainer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -24.0
+offset_right = 80.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+text = "Sell All Crops & Fish"
+
+[node name="CloseButton" type="Button" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -32.0
+offset_right = 85.0
+offset_bottom = -12.0
+grow_vertical = 0
+focus_mode = 0
+text = "Close"
+
+[node name="CoinsDisplay" type="Panel" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -32.0
+offset_right = -15.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="HBox" type="HBoxContainer" parent="NinePatchRect/CoinsDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="NinePatchRect/CoinsDisplay/HBox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_items_texture")
+expand_mode = 1
+region_enabled = true
+region_rect = Rect2(0, 80, 16, 16)
+
+[node name="CoinsLabel" type="Label" parent="NinePatchRect/CoinsDisplay/HBox"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_1")
+vertical_alignment = 1

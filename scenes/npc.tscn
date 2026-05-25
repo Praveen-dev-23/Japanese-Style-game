@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3t8y4exl1p2e"]
+
+[ext_resource type="Script" path="res://scripts/npc.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://de5a8a8a8a8a" path="res://assets/characters.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(14, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0.12, 0.12, 0.15, 1)
+
+[node name="NPC" type="StaticBody2D"]
+collision_layer = 4
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+hframes = 8
+vframes = 4
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_1")
+
+[node name="InteractLabel" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -28.0
+offset_right = 30.0
+offset_bottom = -15.0
+text = "[E] Trade"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
